@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FsExampleModule } from '@firestitch/example';
 
-import { FsComponentModule } from 'fs-package';
+import { FsComponentModule } from 'ngx-account-picker';
 
 import { AppMaterialModule } from './material.module';
 import {

@@ -18,7 +18,7 @@
       "dom"
     ],
     "paths": {
-      "fs-package": [
+      "ngx-account-picker": [
         "src/public_api.ts"
       ]
     }

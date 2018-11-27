@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "fs-package-app": {
+    "ngx-account-picker-app": {
       "root": "",
       "sourceRoot": "playground",
       "projectType": "application",
@@ -50,19 +50,19 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "fs-package-app:build",
+            "browserTarget": "ngx-account-picker-app:build",
             "port": 8000
           },
           "configurations": {
             "production": {
-              "browserTarget": "fs-package-app:build:production"
+              "browserTarget": "ngx-account-picker-app:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "fs-package-app:build"
+            "browserTarget": "ngx-account-picker-app:build"
           }
         },
         "test": {
@@ -96,7 +96,7 @@
         }
       }
     },
-    "fs-package-app-e2e": {
+    "ngx-account-picker-app-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -104,11 +104,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "fs-package-app:serve"
+            "devServerTarget": "ngx-account-picker-app:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "fs-package-app:serve:production"
+              "devServerTarget": "ngx-account-picker-app:serve:production"
             }
           }
         },
@@ -123,7 +123,7 @@
         }
       }
     },
-    "fs-package": {
+    "ngx-account-picker": {
       "root": "src",
       "sourceRoot": "",
       "projectType": "library",
@@ -159,5 +159,5 @@
       }
     }
   },
-  "defaultProject": "fs-package-app"
+  "defaultProject": "ngx-account-picker-app"
 }

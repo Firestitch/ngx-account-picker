@@ -1,10 +1,10 @@
 {
-  "name": "@firestitch/package",
-  "description": "@firestitch/package",
+  "name": "@firestitch/account-picker",
+  "description": "@firestitch/account-picker",
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Firestitch/fs-package"
+    "url": "https://github.com/Firestitch/ngx-account-picker"
   },
   "author": {
     "name": "Firestitch",
@@ -15,13 +15,13 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Firestitch/fs-package/issues"
+    "url": "https://github.com/Firestitch/ngx-account-picker/issues"
   },
   "main": "package/index.js",
   "typings": "package/index.d.ts",
   "scripts": {
-    "package": "ng build fs-package",
-    "package:test": "ng test fs-package",
+    "package": "ng build ngx-account-picker",
+    "package:test": "ng test ngx-account-picker",
     "package:publish": "cd package && npm publish --access=public",
     "demo:build": "ng build --aot --prod",
     "serve": "ng serve"
