@@ -1,0 +1,33 @@
+<mat-form-field>
+  <mat-chip-list #searchList>
+    <mat-chip
+      *ngFor="let item of model"
+      [selectable]="true"
+      [removable]="true"
+      (removed)="onRemove(item)">
+      <ng-container
+        [ngTemplateOutlet]="templateRef"
+        [ngTemplateOutletContext]="{ data: item }">
+      </ng-container>
+      <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input
+      placeholder="{{ label }}"
+      #searchInput
+      [(ngModel)]="keyword"
+      (ngModelChange)="loadSearchData($event)"
+      (keyup)="onKeyUp($event)"
+      name="keyword"
+      [matAutocomplete]="autocompleteSearch"
+      [matChipInputFor]="searchList"
+      [matChipInputAddOnBlur]="true">
+  </mat-chip-list>
+  <mat-autocomplete #autocompleteSearch="matAutocomplete">
+    <mat-option *ngFor="let item of searchData" [value]="item">
+      <ng-container
+        [ngTemplateOutlet]="templateRef"
+        [ngTemplateOutletContext]="{ data: item }">
+      </ng-container>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

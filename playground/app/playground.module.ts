@@ -3,10 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FlexModule } from '@angular/flex-layout';
 
 import { FsExampleModule } from '@firestitch/example';
+import { FsBadgeModule } from '@firestitch/badge';
 
-import { FsComponentModule } from 'ngx-account-picker';
+import { FsAccountPickerModule } from 'ngx-account-picker';
 
 import { AppMaterialModule } from './material.module';
 import {
@@ -23,7 +25,9 @@ const routes: Routes = [
   bootstrap: [ AppComponent ],
   imports: [
     BrowserModule,
-    FsComponentModule,
+    FsBadgeModule,
+    FlexModule,
+    FsAccountPickerModule.forRoot(),
     BrowserAnimationsModule,
     AppMaterialModule,
     FormsModule,
