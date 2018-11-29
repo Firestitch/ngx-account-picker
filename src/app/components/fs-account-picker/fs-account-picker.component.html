@@ -15,19 +15,37 @@
       placeholder="{{ label }}"
       #searchInput
       [(ngModel)]="keyword"
-      (ngModelChange)="loadSearchData($event)"
-      (keyup)="onKeyUp($event)"
+      (ngModelChange)="onSelect($event)"
+      (keyup)="keyword$.next(keyword)"
       name="keyword"
       [matAutocomplete]="autocompleteSearch"
       [matChipInputFor]="searchList"
       [matChipInputAddOnBlur]="true">
   </mat-chip-list>
-  <mat-autocomplete #autocompleteSearch="matAutocomplete">
+  <mat-autocomplete #autocompleteSearch="matAutocomplete" class="fs-account-picker-autocomplete">
+    <mat-optgroup *ngIf="searchData.length" label="Select Account"></mat-optgroup>
+
     <mat-option *ngFor="let item of searchData" [value]="item">
       <ng-container
         [ngTemplateOutlet]="templateRef"
         [ngTemplateOutletContext]="{ data: item }">
       </ng-container>
     </mat-option>
+
+    <ng-container *ngIf="keyword">
+      <mat-optgroup label="Add new person by email"></mat-optgroup>
+
+      <mat-option *ngIf="!isValidKeyword" disabled>
+        {{ keyword }} - Please enter a valid email address
+      </mat-option>
+
+      <mat-option *ngIf="isValidKeyword && newData" [value]="newData">
+        <ng-container
+          [ngTemplateOutlet]="templateRef"
+          [ngTemplateOutletContext]="{ data: newData }">
+        </ng-container>
+      </mat-option>
+
+    </ng-container>
   </mat-autocomplete>
 </mat-form-field>

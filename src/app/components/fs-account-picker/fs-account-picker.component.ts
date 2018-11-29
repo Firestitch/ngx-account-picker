@@ -3,6 +3,11 @@ import { MatAutocompleteTrigger } from '@angular/material'
 
 import { isObject, remove } from 'lodash';
 
+import { Subject } from 'rxjs/Subject';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+
 import { filter, list } from '@firestitch/common/array';
 import { email } from '@firestitch/common/validate/email';
 
@@ -23,13 +28,19 @@ export class FsAccountPickerComponent implements OnInit {
   @Input() public label = 'Email';
   @Input() public indexField = 'id';
   @Input() public keywordField = 'email';
+  @Input() public delay = 500;
 
   @Input() public validateKeyword = keyword => {
     return email(keyword);
   };
+  public isValidKeyword = false;
 
   public searchData: any[] = [];
+  public newData: object = null;
+
   public keyword: string = null;
+  public keyword$ = new Subject<string>();
+
   private _model: any[] = [];
 
   get model() {
@@ -53,57 +64,53 @@ export class FsAccountPickerComponent implements OnInit {
   constructor() { }
 
   public ngOnInit() {
+    this.keyword$
+      .debounceTime(this.delay)
+      .distinctUntilChanged()
+      .subscribe(() => this.onKeyUp());
+
+    this.keyword$
+      .subscribe(() => {
+        this.isValidKeyword = this.validateKeyword(this.keyword);
+        this.newData = { [this.indexField]: null, [this.keywordField]: this.keyword };
+      });
   }
 
-  public loadSearchData($event: any): void {
+  public onKeyUp() {
     this.searchData = [];
 
-    if (!$event) {
+    if (!this.keyword) {
       return;
     }
 
     const query = {
-      keyword: $event,
+      keyword: this.keyword,
       page: 1,
       limit: 10
     };
 
-    if (!isObject($event)) {
-      this.search(query)
-        .subscribe(response => {
-          const selectedIds = list(this._model, this.indexField);
-          this.searchData = filter(response, item => {
-            return selectedIds.indexOf(item[this.indexField]) === -1;
-          });
+    this.search(query)
+      .subscribe(response => {
+        const selectedIds = list(this._model, this.indexField);
+        this.searchData = filter(response, item => {
+          return selectedIds.indexOf(item[this.indexField]) === -1;
         });
-    } else {
-      this.onSelected($event);
-    }
+      });
   }
 
-  public onSelected(data) {
-    this.writeValue([...this._model, data]);
-    this.searchInput.nativeElement.value = '';
-    this.keyword = '';
+  public onSelect(data) {
+    this.searchData = [];
+
+    if (isObject(data)) {
+      this.writeValue([...this._model, data]);
+      this.searchInput.nativeElement.value = '';
+      this.keyword = '';
+    }
   }
 
   public onRemove(data): void {
     remove(this._model, { [this.keywordField]: data[this.keywordField] });
     this.writeValue(this._model, true);
-  }
-
-  public onKeyUp(event) {
-    if (event.keyCode !== 13) {
-      return;
-    }
-
-    let data = filter(this.searchData, { [this.keywordField]: this.keyword });
-    data = data && data.length ? data[0] : { [this.indexField]: null, [this.keywordField]: this.keyword };
-
-    if (this.validateKeyword((data[this.keywordField]))) {
-      this.onSelected(data);
-      this.autocompleteTrigger.closePanel();
-    }
   }
 
   public writeValue(value: any, allowEmpty = false): void {

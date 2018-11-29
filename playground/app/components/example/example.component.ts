@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { of } from 'rxjs/Observable/of';
+import { of } from 'rxjs';
 
 import { filter } from '@firestitch/common/array';
 
