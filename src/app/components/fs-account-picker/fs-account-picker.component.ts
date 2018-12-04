@@ -102,7 +102,11 @@ export class FsAccountPickerComponent implements OnInit {
     this.searchData = [];
 
     if (isObject(data)) {
-      this.writeValue([...this._model, data]);
+
+      if (!filter(this._model, { [this.keywordField]: data[this.keywordField] }).length) {
+        this.writeValue([...this._model, data]);
+      }
+
       this.searchInput.nativeElement.value = '';
       this.keyword = '';
     }
