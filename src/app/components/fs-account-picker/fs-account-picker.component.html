@@ -32,7 +32,7 @@
       </ng-container>
     </mat-option>
 
-    <ng-container *ngIf="keyword">
+    <ng-container *ngIf="keyword && !isExistData">
       <mat-optgroup label="Add new person by email"></mat-optgroup>
 
       <mat-option *ngIf="!isValidKeyword" disabled>

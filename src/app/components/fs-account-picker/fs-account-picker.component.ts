@@ -34,6 +34,7 @@ export class FsAccountPickerComponent implements OnInit {
     return email(keyword);
   };
   public isValidKeyword = false;
+  public isExistData = true;
 
   public searchData: any[] = [];
   public newData: object = null;
@@ -71,7 +72,9 @@ export class FsAccountPickerComponent implements OnInit {
 
     this.keyword$
       .subscribe(() => {
+        this.isExistData = true;
         this.isValidKeyword = this.validateKeyword(this.keyword);
+
         this.newData = { [this.indexField]: null, [this.keywordField]: this.keyword };
       });
   }
@@ -91,6 +94,9 @@ export class FsAccountPickerComponent implements OnInit {
 
     this.search(query)
       .subscribe(response => {
+
+        this.isExistData = !!filter(response, { [this.keywordField]: this.keyword }).length;
+
         const selectedIds = list(this._model, this.indexField);
         this.searchData = filter(response, item => {
           return selectedIds.indexOf(item[this.indexField]) === -1;
