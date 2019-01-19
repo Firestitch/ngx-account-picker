@@ -1,24 +1,37 @@
-import { Component, ViewChild, ElementRef, TemplateRef, ContentChild, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+  ElementRef,
+  TemplateRef,
+  ContentChild,
+  Input,
+  OnInit,
+  Provider, forwardRef
+} from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MatAutocompleteTrigger } from '@angular/material'
 
-import { isObject, remove } from 'lodash';
+import { filter, list, email } from '@firestitch/common';
 
-import { Subject } from 'rxjs/Subject';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/switchMap';
+import { isObject, remove } from 'lodash-es';
 
-import { filter, list } from '@firestitch/common/array';
-import { email } from '@firestitch/common/validate/email';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
-import { FS_ACCOUNT_PICKER_ACCESSOR } from '../../value-accessors/fs-account-picker.value-accessor';
-import { FsAccountPickerResultDirective } from '../../directives/fs-account-picker-result/fs-account-picker-result.directive';
+import { FsAccountPickerResultDirective } from '../../directives/account-picker-result/account-picker-result.directive';
+
+
+export const FS_ACCOUNT_PICKER_ACCESSOR: Provider = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => FsAccountPickerComponent),
+  multi: true
+};
 
 
 @Component({
   selector: 'fs-account-picker',
-  templateUrl: './fs-account-picker.component.html',
-  styleUrls: [ './fs-account-picker.component.scss' ],
+  templateUrl: './account-picker.component.html',
+  styleUrls: [ './account-picker.component.scss' ],
   providers: [FS_ACCOUNT_PICKER_ACCESSOR]
 })
 export class FsAccountPickerComponent implements OnInit {
@@ -66,8 +79,10 @@ export class FsAccountPickerComponent implements OnInit {
 
   public ngOnInit() {
     this.keyword$
-      .debounceTime(this.delay)
-      .distinctUntilChanged()
+      .pipe(
+        debounceTime(this.delay),
+        distinctUntilChanged(),
+      )
       .subscribe(() => this.onKeyUp());
 
     this.keyword$

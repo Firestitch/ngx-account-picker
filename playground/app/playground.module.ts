@@ -8,7 +8,7 @@ import { FlexModule } from '@angular/flex-layout';
 import { FsExampleModule } from '@firestitch/example';
 import { FsBadgeModule } from '@firestitch/badge';
 
-import { FsAccountPickerModule } from 'ngx-account-picker';
+import { FsAccountPickerModule } from '@firestitch/account-picker';
 
 import { AppMaterialModule } from './material.module';
 import {
@@ -27,7 +27,7 @@ const routes: Routes = [
     BrowserModule,
     FsBadgeModule,
     FlexModule,
-    FsAccountPickerModule.forRoot(),
+    FsAccountPickerModule,
     BrowserAnimationsModule,
     AppMaterialModule,
     FormsModule,

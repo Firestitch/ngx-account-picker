@@ -1,4 +1,4 @@
-import { NgModule, ModuleWithProviders } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
@@ -9,8 +9,8 @@ import {
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 
-import { FsAccountPickerComponent } from './components/fs-account-picker/fs-account-picker.component';
-import { FsAccountPickerResultDirective } from './directives/fs-account-picker-result/fs-account-picker-result.directive';
+import { FsAccountPickerComponent } from './components/account-picker/account-picker.component';
+import { FsAccountPickerResultDirective } from './directives/account-picker-result/account-picker-result.directive';
 
 
 @NgModule({
@@ -33,10 +33,4 @@ import { FsAccountPickerResultDirective } from './directives/fs-account-picker-r
   ],
   providers: [],
 })
-export class FsAccountPickerModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: FsAccountPickerModule
-    };
-  }
-}
+export class FsAccountPickerModule {}

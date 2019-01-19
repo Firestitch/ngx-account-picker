@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { of } from 'rxjs';
 
-import { filter } from '@firestitch/common/array';
+import { filter } from '@firestitch/common';
 
 
 @Component({
