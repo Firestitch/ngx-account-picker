@@ -1,7 +1,7 @@
 {
   "name": "@firestitch/account-picker",
   "description": "@firestitch/account-picker",
-  "version": "0.3.0",
+  "version": "7.0.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Firestitch/ngx-account-picker"
@@ -45,8 +45,8 @@
     "@angular/router": "^7.2.1",
     "@compodoc/compodoc": "^1.1.7",
     "@firestitch/badge": "^0.2.0",
-    "@firestitch/common": "^0.5.1",
-    "@firestitch/example": "^0.5.2",
+    "@firestitch/common": "^7.0.0",
+    "@firestitch/example": "^7.0.0",
     "@firestitch/iframe": "^0.2.0",
     "codelyzer": "^4.5.0",
     "cpx": "^1.5.0",
@@ -59,16 +59,14 @@
     "typescript": "^3.1.6",
     "webpack": "^4.28.4",
     "webpack-dev-server": "^3.1.14",
-    "zone.js": "^0.8.28"
+    "zone.js": "^0.8.28",
+    "lodash-es": "^4.17.11"
   },
   "engines": {
     "node": ">=6.0.0"
   },
   "peerDependencies": {
-    "@firestitch/form": ">=1.1.6",
-    "lodash": ">=4.17.10"
-  },
-  "dependencies": {
-    "lodash-es": "^4.17.11"
+    "@firestitch/common": ">=7.0.0",
+    "lodash-es": ">=4.17.10"
   }
 }
