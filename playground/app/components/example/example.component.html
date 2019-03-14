@@ -1,4 +1,4 @@
-<fs-account-picker [search]="search" [(ngModel)]="selectedAccounts">
+<fs-account-picker [search]="search" [(ngModel)]="selectedAccounts" label="Select Account">
 	<ng-template fs-account-picker-result let-account="data">
     <div *ngIf="account.id" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
       <fs-badge [image]="account.avatar" size="24"></fs-badge>

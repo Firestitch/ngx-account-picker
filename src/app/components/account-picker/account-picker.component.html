@@ -12,7 +12,7 @@
       <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
     <input
-      placeholder="{{ label }}"
+      placeholder="{{label}}"
       #searchInput
       [(ngModel)]="keyword"
       (ngModelChange)="onSelect($event)"
@@ -22,8 +22,11 @@
       [matChipInputFor]="searchList"
       [matChipInputAddOnBlur]="true">
   </mat-chip-list>
-  <mat-autocomplete #autocompleteSearch="matAutocomplete" class="fs-account-picker-autocomplete">
-    <mat-optgroup *ngIf="searchData.length" label="Select Account"></mat-optgroup>
+  <mat-autocomplete
+    #autocompleteSearch="matAutocomplete"
+    class="fs-account-picker-autocomplete"
+    autoActiveFirstOption="true">
+    <!-- <mat-optgroup *ngIf="searchData.length" label="Select Account"></mat-optgroup> -->
 
     <mat-option *ngFor="let item of searchData" [value]="item">
       <ng-container
@@ -32,11 +35,12 @@
       </ng-container>
     </mat-option>
 
-    <ng-container *ngIf="keyword && !isExistData">
-      <mat-optgroup label="Add new person by email"></mat-optgroup>
+    <ng-container *ngIf="keyword">
+      <!-- <mat-optgroup label="Add new person by email"></mat-optgroup> -->
 
-      <mat-option *ngIf="!isValidKeyword" disabled>
-        {{ keyword }} - Please enter a valid email address
+      <mat-option *ngIf="!isValidKeyword" disabled class="invalid-email-preview">
+        <div>{{ keyword }}</div>
+        <small>Invalid email address</small>
       </mat-option>
 
       <mat-option *ngIf="isValidKeyword && newData" [value]="newData">

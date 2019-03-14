@@ -38,7 +38,7 @@ export class FsAccountPickerComponent implements OnInit {
 
   @Input() public search = null;
 
-  @Input() public label = 'Email';
+  @Input() public label = '';
   @Input() public indexField = 'id';
   @Input() public keywordField = 'email';
   @Input() public delay = 500;
