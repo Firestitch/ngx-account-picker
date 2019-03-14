@@ -1,12 +1,8 @@
-<fs-account-picker [search]="search" [(ngModel)]="selectedAccounts" label="Select Account">
-	<ng-template fs-account-picker-result let-account="data">
-    <div *ngIf="account.id" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
-      <fs-badge [image]="account.avatar" size="24"></fs-badge>
-      <span>{{ account.name }}</span>
-    </div>
-    <div *ngIf="!account.id">{{ account.email }}</div>
-	</ng-template>
-</fs-account-picker>
+<fs-account-picker
+  [search]="search"
+  [(ngModel)]="selectedAccounts"
+  label="Select Account"
+  imageProperty="image.small"></fs-account-picker>
 
 <fieldset>
   {{ selectedAccounts | json }}

@@ -14,20 +14,16 @@ export class ExampleComponent {
 
   public selectedAccounts = [];
 
-  public search = query => {
+  public search = keyword => {
     const accounts: any[] = [
-      { name: 'Bob', email: 'bob@gmail.com', id: 1 },
-      { name: 'Ryan', email: 'ryan@gmail.com', id: 2 },
-      { name: 'Jane', email: 'jane@gmail.com', id: 3 },
-      { name: 'Dave', email: 'dave@gmail.com', id: 4 }
+      { name: 'Bob', email: 'bob@gmail.com', id: 1, image: { small: 'https://randomuser.me/api/portraits/men/61.jpg' } },
+      { name: 'Ryan', email: 'ryan@gmail.com', id: 2, image: { small: 'https://randomuser.me/api/portraits/men/33.jpg' } },
+      { name: 'Jane', email: 'jane@gmail.com', id: 3, image: { small: 'https://randomuser.me/api/portraits/men/44.jpg' } },
+      { name: 'Dave', email: 'dave@gmail.com', id: 4, image: { small: 'https://randomuser.me/api/portraits/men/55.jpg' } }
     ];
 
-    accounts.forEach(item => {
-      item.avatar = 'https://randomuser.me/api/portraits/men/' + Math.floor((Math.random() * 99) + 1) + '.jpg';
-    });
-
     return of(filter(accounts, item => {
-      return item.email.toLowerCase().match(new RegExp(query.keyword.toLowerCase()));
+      return item.email.toLowerCase().match(new RegExp(String(keyword).toLowerCase()));
     }));
   }
 

@@ -9,6 +9,7 @@ import { FsExampleModule } from '@firestitch/example';
 import { FsBadgeModule } from '@firestitch/badge';
 
 import { FsAccountPickerModule } from '@firestitch/account-picker';
+import { FsChipModule } from '@firestitch/chip';
 
 import { AppMaterialModule } from './material.module';
 import {
@@ -27,6 +28,7 @@ const routes: Routes = [
     BrowserModule,
     FsBadgeModule,
     FlexModule,
+    FsChipModule,
     FsAccountPickerModule,
     BrowserAnimationsModule,
     AppMaterialModule,

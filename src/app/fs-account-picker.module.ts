@@ -8,6 +8,7 @@ import {
   MatFormFieldModule
 } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import { FsBadgeModule } from '@firestitch/badge';
 
 import { FsAccountPickerComponent } from './components/account-picker/account-picker.component';
 import { FsAccountPickerResultDirective } from './directives/account-picker-result/account-picker-result.directive';
@@ -20,7 +21,8 @@ import { FsAccountPickerResultDirective } from './directives/account-picker-resu
     MatAutocompleteModule,
     MatIconModule,
     MatFormFieldModule,
-    FormsModule
+    FormsModule,
+    FsBadgeModule
   ],
   exports: [
     FsAccountPickerComponent,

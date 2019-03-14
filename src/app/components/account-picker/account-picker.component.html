@@ -5,18 +5,19 @@
       [selectable]="true"
       [removable]="true"
       (removed)="onRemove(item)">
-      <ng-container
-        [ngTemplateOutlet]="templateRef"
-        [ngTemplateOutletContext]="{ data: item }">
-      </ng-container>
+        <ng-container
+          [ngTemplateOutlet]="itemTemplate"
+          [ngTemplateOutletContext]="{ item: item }">
+        </ng-container>
       <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
     <input
-      placeholder="{{label}}"
       #searchInput
+      placeholder="{{label}}"
       [(ngModel)]="keyword"
       (ngModelChange)="onSelect($event)"
       (keyup)="keyword$.next(keyword)"
+      (blur)="blur()"
       name="keyword"
       [matAutocomplete]="autocompleteSearch"
       [matChipInputFor]="searchList"
@@ -30,26 +31,40 @@
 
     <mat-option *ngFor="let item of searchData" [value]="item">
       <ng-container
-        [ngTemplateOutlet]="templateRef"
-        [ngTemplateOutletContext]="{ data: item }">
+        [ngTemplateOutlet]="itemTemplate"
+        [ngTemplateOutletContext]="{ item: item }">
       </ng-container>
     </mat-option>
 
     <ng-container *ngIf="keyword">
       <!-- <mat-optgroup label="Add new person by email"></mat-optgroup> -->
 
-      <mat-option *ngIf="!isValidKeyword" disabled class="invalid-email-preview">
+      <mat-option *ngIf="!newData.type" disabled class="invalid-email-preview">
         <div>{{ keyword }}</div>
         <small>Invalid email address</small>
       </mat-option>
 
-      <mat-option *ngIf="isValidKeyword && newData" [value]="newData">
+      <mat-option *ngIf="newData.type==='email'" [value]="newData">
+
         <ng-container
-          [ngTemplateOutlet]="templateRef"
-          [ngTemplateOutletContext]="{ data: newData }">
+          [ngTemplateOutlet]="itemTemplate"
+          [ngTemplateOutletContext]="{ item: newData }">
         </ng-container>
       </mat-option>
 
     </ng-container>
   </mat-autocomplete>
 </mat-form-field>
+
+<ng-template let-item="item" #itemTemplate>
+  <div *ngIf="item.type==='account'" class="item-template">
+    <fs-badge [image]="item.image" size="32"></fs-badge>
+    <div>
+      {{item.name}}
+    </div>
+  </div>
+
+  <div *ngIf="item.type==='email'">
+    {{item.email}}
+  </div>
+</ng-template>

@@ -2,8 +2,34 @@
   mat-form-field {
     width: 100%;
   }
+
+  .item-template {
+
+    fs-badge {
+      margin-left: -12px;
+    }
+  }
 }
 
-::ng-deep .fs-account-picker-autocomplete .invalid-email-preview {
-  line-height: normal;
+::ng-deep .fs-account-picker-autocomplete {
+
+  mat-option {
+    line-height: normal;
+  }
+
+  .invalid-email-preview {
+    line-height: normal;
+  }
+}
+
+::ng-deep .fs-account-picker-autocomplete .item-template,
+:host .item-template {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  fs-badge {
+    margin-right: 10px;
+    display: flex;
+  }
 }
