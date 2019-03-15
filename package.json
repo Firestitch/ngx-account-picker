@@ -48,7 +48,6 @@
     "@firestitch/badge": "^7.0.0",
     "@firestitch/common": "^7.0.0",
     "@firestitch/example": "^7.0.0",
-    "@firestitch/iframe": "^0.2.0",
     "@firestitch/chip": "^7.2.0",
     "@firestitch/label": "^7.0.0",
     "codelyzer": "^4.5.0",
