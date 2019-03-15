@@ -1,5 +1,6 @@
 {
   "name": "@firestitch/account-picker",
+  "title": "Account Picker",
   "description": "@firestitch/account-picker",
   "version": "7.0.0",
   "repository": {
