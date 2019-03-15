@@ -16,6 +16,7 @@ import {
 ExampleComponent,
 ExamplesComponent } from './components';
 import { AppComponent } from './app.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
     AppMaterialModule,
     FormsModule,
     FsExampleModule.forRoot(),
+    ToastrModule.forRoot({ preventDuplicates: true }),
     RouterModule.forRoot(routes),
   ],
   entryComponents: [
