@@ -1,19 +1,22 @@
 import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
-  ViewChild,
-  ElementRef,
-  TemplateRef,
   ContentChild,
+  ElementRef,
+  forwardRef,
   Input,
+  OnDestroy,
   OnInit,
-  Provider, forwardRef, OnDestroy
+  Provider,
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { MatAutocompleteTrigger } from '@angular/material'
+import { MatAutocompleteTrigger } from '@angular/material/autocomplete';
 
-import { filter, email } from '@firestitch/common';
+import { email, filter } from '@firestitch/common';
 
-import { isObject, isEqual, remove, findIndex } from 'lodash-es';
+import { findIndex, isEqual, isObject, remove } from 'lodash-es';
 
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -33,7 +36,8 @@ export const FS_ACCOUNT_PICKER_ACCESSOR: Provider = {
   selector: 'fs-account-picker',
   templateUrl: './account-picker.component.html',
   styleUrls: [ './account-picker.component.scss' ],
-  providers: [FS_ACCOUNT_PICKER_ACCESSOR]
+  providers: [FS_ACCOUNT_PICKER_ACCESSOR],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FsAccountPickerComponent implements OnInit, OnDestroy {
 
@@ -51,7 +55,7 @@ export class FsAccountPickerComponent implements OnInit, OnDestroy {
   public isValidKeyword = false;
 
   public searchData: any[] = [];
-  public newData: object = {};
+  public newData: any = {};
 
   public keyword: string = null;
   public keyword$ = new Subject<string>();
@@ -63,11 +67,11 @@ export class FsAccountPickerComponent implements OnInit, OnDestroy {
     return this._model;
   }
 
-  @ViewChild('searchInput') public searchInput: ElementRef = null;
-  @ViewChild('autocompleteSearch') public autocompleteSearch = null;
-  @ViewChild(MatAutocompleteTrigger) public autocompleteTrigger = null;
+  @ViewChild('searchInput', { static: true }) public searchInput: ElementRef = null;
+  @ViewChild('autocompleteSearch', { static: true }) public autocompleteSearch = null;
+  @ViewChild(MatAutocompleteTrigger, { static: true }) public autocompleteTrigger = null;
 
-  @ContentChild(FsAccountPickerResultDirective, { read: TemplateRef })
+  @ContentChild(FsAccountPickerResultDirective, { read: TemplateRef, static: false })
   public templateRef: FsAccountPickerResultDirective = null;
 
   private _onTouched = () => { };
@@ -78,7 +82,7 @@ export class FsAccountPickerComponent implements OnInit, OnDestroy {
   public registerOnTouched(fn: () => any): void { this._onTouched = fn }
 
 
-  constructor() { }
+  constructor(private _cdRef: ChangeDetectorRef) { }
 
   public ngOnInit() {
     this.keyword$
@@ -86,7 +90,10 @@ export class FsAccountPickerComponent implements OnInit, OnDestroy {
         takeUntil(this.destroy$),
         debounceTime(this.delay)
       )
-      .subscribe(() => this.onKeyUp());
+      .subscribe(() => {
+        this.onKeyUp();
+        this._cdRef.markForCheck();
+      });
 
     this.keyword$
       .pipe(
@@ -98,6 +105,8 @@ export class FsAccountPickerComponent implements OnInit, OnDestroy {
         if (this.validateKeyword(this.keyword)) {
           this.newData = { type: 'email', email: this.keyword };
         }
+
+        this._cdRef.markForCheck();
       });
   }
 
@@ -113,6 +122,8 @@ export class FsAccountPickerComponent implements OnInit, OnDestroy {
       }
 
       this.clearInput();
+
+      this._cdRef.markForCheck();
     });
   }
 
@@ -155,6 +166,8 @@ export class FsAccountPickerComponent implements OnInit, OnDestroy {
           }) === -1;
 
         });
+
+        this._cdRef.markForCheck();
       });
   }
 
