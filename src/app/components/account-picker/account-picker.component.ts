@@ -71,7 +71,7 @@ export class FsAccountPickerComponent implements OnInit, OnDestroy {
   @ViewChild('autocompleteSearch', { static: true }) public autocompleteSearch = null;
   @ViewChild(MatAutocompleteTrigger, { static: true }) public autocompleteTrigger = null;
 
-  @ContentChild(FsAccountPickerResultDirective, { read: TemplateRef, static: false })
+  @ContentChild(FsAccountPickerResultDirective, { read: TemplateRef })
   public templateRef: FsAccountPickerResultDirective = null;
 
   private _onTouched = () => { };
