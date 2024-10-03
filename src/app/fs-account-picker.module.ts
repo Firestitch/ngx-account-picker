@@ -13,24 +13,23 @@ import { FsAccountPickerResultDirective } from './directives/account-picker-resu
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatChipsModule,
-    MatAutocompleteModule,
-    MatIconModule,
-    MatFormFieldModule,
-    FormsModule,
-    FsBadgeModule
-  ],
-  exports: [
-    FsAccountPickerComponent,
-    FsAccountPickerResultDirective
-  ],
-  entryComponents: [],
-  declarations: [
-    FsAccountPickerComponent,
-    FsAccountPickerResultDirective,
-  ],
-  providers: [],
+    imports: [
+        CommonModule,
+        MatChipsModule,
+        MatAutocompleteModule,
+        MatIconModule,
+        MatFormFieldModule,
+        FormsModule,
+        FsBadgeModule
+    ],
+    exports: [
+        FsAccountPickerComponent,
+        FsAccountPickerResultDirective
+    ],
+    declarations: [
+        FsAccountPickerComponent,
+        FsAccountPickerResultDirective,
+    ],
+    providers: []
 })
 export class FsAccountPickerModule {}
